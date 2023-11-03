@@ -12,7 +12,10 @@ const EditTodoForm = ({todo, handleUpdate}:PropsInterface) => {
 
     const [updatedValue, setUpdatedValue] = useState<string>(todo.task)
   return (
-    <div className="flex gap-2 w-[600px]">
+    <form className="flex gap-2 w-[600px]" onSubmit={(e)=>{
+      e.preventDefault();
+      handleUpdate(todo.id, updatedValue);
+      }}>
     <input
       type="text"
       placeholder="Your pending tasks"
@@ -24,11 +27,12 @@ const EditTodoForm = ({todo, handleUpdate}:PropsInterface) => {
     />
     <button
       className="border-none bg-blue-700 text-white rounded-sm px-4 py-2 "
+      type="submit"
       onClick={()=> handleUpdate(todo.id, updatedValue)}
     >
       Update
     </button>
-  </div>
+  </form>
   )
 }
 

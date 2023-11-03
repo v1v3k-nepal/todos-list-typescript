@@ -34,7 +34,7 @@ const TodoList = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-4 h-screen border-2 bg-[#b3d7fd] max-w-[800px] mx-auto">
       <h1 className="font-semibold text-2xl mb-5">Todo List</h1>
-      <div className="flex gap-2 w-[600px]">
+      <form className="flex gap-2 w-[600px]" onSubmit={(e)=> {e.preventDefault(); handleAdd()}}>
         <input
           type="text"
           placeholder="Your pending tasks"
@@ -46,11 +46,12 @@ const TodoList = () => {
         />
         <button
           className="border-none bg-blue-700 text-white rounded-sm px-4 py-2 "
-          onClick={handleAdd}
+          onClick={()=>handleAdd}
+          type="submit"
         >
           Add
         </button>
-      </div>
+      </form>
       <div className="flex flex-col gap-4 w-[600px]">
         {todosCollection.map((todo) => {
             return(
