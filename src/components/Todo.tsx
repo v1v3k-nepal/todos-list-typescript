@@ -12,6 +12,7 @@ const Todo = ({todo}:PropsInterface) => {
 
   const dispatch = useDispatch();
 
+
   return (
     <div className="flex gap-2 items-center p-4 bg-blue-300 rounded-sm w-full">
     <p

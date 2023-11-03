@@ -1,11 +1,9 @@
-// import React from 'react'
 import {useDispatch} from "react-redux";
 import { handleUpdate } from "../redux/todoSlice"
 import { useState } from "react"
 import { TodoType } from "../types/TodoType"
 
 interface PropsInterface {
-    // handleUpdate: (id:number, value:string) => void
     todo: TodoType
 }
 
@@ -15,7 +13,7 @@ const EditTodoForm = ({todo}:PropsInterface) => {
     const dispatch = useDispatch();
 
   return (
-    <div className="flex gap-2 w-[600px]">
+    <form className="flex gap-2 w-[600px]" onSubmit={()=>{dispatch(handleUpdate({id:todo.id, value:updatedValue}))}}>
     <input
       type="text"
       placeholder="Your pending tasks"
@@ -27,11 +25,11 @@ const EditTodoForm = ({todo}:PropsInterface) => {
     />
     <button
       className="border-none bg-blue-700 text-white rounded-sm px-4 py-2 "
-      onClick={()=> dispatch(handleUpdate({id:todo.id, value:updatedValue}))}
+      // onClick={()=> dispatch(handleUpdate({id:todo.id, value:updatedValue}))}
     >
       Update
     </button>
-  </div>
+  </form>
   )
 }
 

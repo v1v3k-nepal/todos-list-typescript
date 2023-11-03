@@ -9,7 +9,7 @@ const todoSlice = createSlice({
     name: "todo",
     initialState,
     reducers: {
-        handleToggle : (state, action):void => {
+        handleToggle : (state, action) => {
             const todosCollection = state.todosCollection
             const id = action.payload;
             const modifiedCollection = todosCollection.map((todo:TodoType) =>
