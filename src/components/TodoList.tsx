@@ -4,10 +4,11 @@ import { TodoType } from "../types/TodoType";
 import EditTodoForm from "./EditTodoForm";
 import {useSelector, useDispatch} from "react-redux";
 import { handleAdd } from "../redux/todoSlice";
+import { RootState } from "../redux/store";
 
 const TodoList = () => {
 
-const todosCollection = useSelector((state)=> state.todo.todosCollection);
+const todosCollection = useSelector((state:RootState)=> state.todo.todosCollection);
 const dispatch = useDispatch();
   const [input, setInput] = useState("");
 
