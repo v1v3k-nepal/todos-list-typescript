@@ -2,34 +2,14 @@ import { useState } from "react";
 import Todo from "./Todo";
 import { TodoType } from "../types/TodoType";
 import EditTodoForm from "./EditTodoForm";
+import {useSelector, useDispatch} from "react-redux";
+import { handleAdd } from "../redux/todoSlice";
 
 const TodoList = () => {
-  const [todosCollection, setTodosCollection] = useState<TodoType[]>([]);
+
+const todosCollection = useSelector((state)=> state.todo.todosCollection);
+const dispatch = useDispatch();
   const [input, setInput] = useState("");
-
-  const handleToggle = (id: number):void => {
-    const modifiedCollection = todosCollection.map((todo) =>
-      todo.id == id ? { ...todo, completed: !todo.completed } : todo
-    );
-    setTodosCollection(modifiedCollection);
-  };
-
-  const handleUpdate = (id:number, value:string):void =>{
-    const modifiedCollection = todosCollection.map((todo)=> todo.id== id? {...todo, task: value,isEditing: !todo.isEditing}: todo);
-    setTodosCollection(modifiedCollection);
-  }
-
-  const handleAdd = ():void => {
-    setTodosCollection([
-      ...todosCollection,
-      { id: Date.now(), task: input, completed: false, isEditing:false },
-    ]);
-  };
-
-  const handleDelete = (id: number):void => {
-    const modifiedCollection = todosCollection.filter((todo) => todo.id !== id);
-    setTodosCollection(modifiedCollection);
-  };
 
   return (
     <div className="flex flex-col justify-center items-center gap-4 h-screen border-2 bg-[#b3d7fd] max-w-[800px] mx-auto">
@@ -46,21 +26,20 @@ const TodoList = () => {
         />
         <button
           className="border-none bg-blue-700 text-white rounded-sm px-4 py-2 "
-          onClick={handleAdd}
+          onClick={()=>dispatch(handleAdd(input))}
         >
           Add
         </button>
       </div>
       <div className="flex flex-col gap-4 w-[600px]">
-        {todosCollection.map((todo) => {
+        {todosCollection.map((todo:TodoType) => {
             return(
-                todo.isEditing?<EditTodoForm handleUpdate={handleUpdate} todo={todo} key={todo.id}/>:
+                todo.isEditing?<EditTodoForm 
+                todo={todo} key={todo.id}/>:
                 <Todo 
                 todo={todo} 
                 key={todo.id}
-                handleDelete={handleDelete}
-                handleToggle={handleToggle}
-                handleUpdate={handleUpdate}/>
+                />
             )         
             })}
       </div>

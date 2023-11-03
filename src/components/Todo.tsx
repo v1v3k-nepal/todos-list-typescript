@@ -1,18 +1,16 @@
-// import React from 'react'
+import { handleDelete, handleToggle, handleUpdate } from "../redux/todoSlice";
 import { BiEdit } from "react-icons/bi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { TodoType } from "../types/TodoType";
+import {useDispatch} from "react-redux";
 
 interface PropsInterface {
-  handleUpdate: (id:number, value:string)=> void
-  handleDelete: (id: number)=> void
-  handleToggle: (id: number)=> void
   todo: TodoType
 }
 
-const Todo = (props:PropsInterface) => {
+const Todo = ({todo}:PropsInterface) => {
 
-  const {handleDelete, handleToggle, handleUpdate, todo} = props
+  const dispatch = useDispatch();
 
   return (
     <div className="flex gap-2 items-center p-4 bg-blue-300 rounded-sm w-full">
@@ -21,15 +19,15 @@ const Todo = (props:PropsInterface) => {
         textDecoration: todo.completed ? "line-through" : "none",
       }}
       className="text-xl cursor-pointer"
-      onClick={() => handleToggle(todo.id)}
+      onClick={() => dispatch(handleToggle(todo.id))}
     >
       {todo.task}
     </p>
     <div className="ml-auto flex gap-4 cursor-pointer">
-      <BiEdit size={25} onClick={()=> handleUpdate(todo.id, todo.task)}/>
+      <BiEdit size={25} onClick={()=> dispatch(handleUpdate({id:todo.id, value: todo.task}))}/>
       <AiOutlineDelete
         size={25}
-        onClick={() => handleDelete(todo.id)}
+        onClick={() => dispatch(handleDelete(todo.id))}
       />
     </div>
   </div>
